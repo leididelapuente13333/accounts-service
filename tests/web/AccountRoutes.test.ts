@@ -59,6 +59,7 @@ class InMemoryAccountRepo implements AccountRepositoryPort {
 const mockPublisher: EventPublisherPort = {
   publishUserCreated: jest.fn().mockResolvedValue(undefined),
   publishFundsDeposited: jest.fn().mockResolvedValue(undefined),
+  publishTransferCompleted: jest.fn().mockResolvedValue(undefined),
   close: jest.fn().mockResolvedValue(undefined),
 };
 

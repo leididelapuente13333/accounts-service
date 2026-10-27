@@ -3,6 +3,7 @@ import {
   DomainEvent,
   EventPublisherPort,
   FundsDepositedEventPayload,
+  TransferCompletedEventPayload,
   UserCreatedEventPayload,
 } from '../../domain/ports/out/EventPublisherPort';
 import { config } from '../config/environment';
@@ -110,6 +111,21 @@ export class RabbitMQEventPublisher implements EventPublisherPort {
     });
 
     console.log(`[RabbitMQ] Published event '${event.eventName}' to exchange '${this.exchange}' [RoutingKey: wallet.funds-deposited]`);
+  }
+
+  public async publishTransferCompleted(event: DomainEvent<TransferCompletedEventPayload>): Promise<void> {
+    const channel = await this.getChannel();
+    const content = Buffer.from(JSON.stringify(event));
+
+    channel.publish(this.exchange, 'transfer.completed', content, {
+      contentType: 'application/json',
+      persistent: true,
+      timestamp: Date.now(),
+      correlationId: event.payload.transactionId,
+      type: event.eventName,
+    });
+
+    console.log(`[RabbitMQ] Published event '${event.eventName}' to exchange '${this.exchange}' [RoutingKey: transfer.completed]`);
   }
 
   public async close(): Promise<void> {

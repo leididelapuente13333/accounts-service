@@ -5,6 +5,8 @@ export interface DepositFundsCommand {
   amount: number;
   idempotencyKey: string;
   reference?: string;
+  name?: string;
+  email?: string;
 }
 
 export interface DepositFundsResult {

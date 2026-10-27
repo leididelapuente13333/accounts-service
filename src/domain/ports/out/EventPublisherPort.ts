@@ -20,8 +20,19 @@ export interface FundsDepositedEventPayload {
   reference?: string;
 }
 
+export interface TransferCompletedEventPayload {
+  transactionId: string;
+  amount: string;
+  currency: string;
+  sourceAccountId: string;
+  destinationAccountId: string;
+  name: string;
+  email: string;
+}
+
 export interface EventPublisherPort {
   publishUserCreated(event: DomainEvent<UserCreatedEventPayload>): Promise<void>;
   publishFundsDeposited(event: DomainEvent<FundsDepositedEventPayload>): Promise<void>;
+  publishTransferCompleted(event: DomainEvent<TransferCompletedEventPayload>): Promise<void>;
   close(): Promise<void>;
 }

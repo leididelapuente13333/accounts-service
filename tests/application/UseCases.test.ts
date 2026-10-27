@@ -57,6 +57,7 @@ class InMemoryAccountRepository implements AccountRepositoryPort {
 class MockEventPublisher implements EventPublisherPort {
   public publishedUserCreated: DomainEvent<UserCreatedEventPayload>[] = [];
   public publishedFundsDeposited: DomainEvent<FundsDepositedEventPayload>[] = [];
+  public publishedTransferCompleted: DomainEvent<any>[] = [];
 
   async publishUserCreated(event: DomainEvent<UserCreatedEventPayload>): Promise<void> {
     this.publishedUserCreated.push(event);
@@ -64,6 +65,10 @@ class MockEventPublisher implements EventPublisherPort {
 
   async publishFundsDeposited(event: DomainEvent<FundsDepositedEventPayload>): Promise<void> {
     this.publishedFundsDeposited.push(event);
+  }
+
+  async publishTransferCompleted(event: DomainEvent<any>): Promise<void> {
+    this.publishedTransferCompleted.push(event);
   }
 
   async close(): Promise<void> {}

@@ -41,7 +41,11 @@ async function bootstrap() {
     config.usersServiceUrl
   );
   const getAccountService = new GetAccountService(accountRepository);
-  const depositFundsService = new DepositFundsService(accountRepository, eventPublisher);
+  const depositFundsService = new DepositFundsService(
+    accountRepository,
+    eventPublisher,
+    config.usersServiceUrl
+  );
 
   const accountController = new AccountController(
     createAccountService,

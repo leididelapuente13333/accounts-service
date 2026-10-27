@@ -47,6 +47,7 @@ async function runRealApiTests() {
     await amqpChannel.bindQueue(q.queue, RABBITMQ_EXCHANGE, 'user.created');
     await amqpChannel.bindQueue(q.queue, RABBITMQ_EXCHANGE, 'account.created');
     await amqpChannel.bindQueue(q.queue, RABBITMQ_EXCHANGE, 'wallet.funds-deposited');
+    await amqpChannel.bindQueue(q.queue, RABBITMQ_EXCHANGE, 'transfer.completed');
 
     amqpChannel.consume(q.queue, (msg) => {
       if (msg) {

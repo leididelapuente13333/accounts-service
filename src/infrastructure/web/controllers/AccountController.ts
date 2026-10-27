@@ -76,6 +76,8 @@ export class AccountController {
         amount: validatedBody.amount,
         idempotencyKey: validatedBody.idempotencyKey,
         reference: validatedBody.reference,
+        name: validatedBody.name,
+        email: validatedBody.email,
       });
 
       res.status(200).json({
